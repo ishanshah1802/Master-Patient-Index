@@ -1,0 +1,62 @@
+Table tbl_patient_master{
+  patient_id int [pk,increment]
+  patient_name varchar(50) [not null]
+  patient_dob date [not null]
+  patient_marital_status varchar(20) [not null]
+  patient_blood_group varchar(5) [not null]
+  patient_phone_number varchar(10) [not null]
+  patient_gender varchar(10) [not null]
+  patient_height varchar(10) [not null]
+  patient_weight varchar(10) [not null]
+  patient_email varchar(255)
+  patient_address varchar(255) [not null]
+  guardian_name varchar(50) [not null]
+  guardian_relation varchar(20) [not null]
+  guardian_phone_number varchar(10) [not null]
+  patient_password varchar(255) [not null]
+  created_at datetime
+  updated_at datetime
+  patient_status bool
+}
+
+Table tbl_staff_master{
+  staff_id int [pk,increment]
+  staff_name varchar(50) [not null]
+  staff_dob date [not null]
+  staff_marital_status varchar(20) [not null]
+  staff_designation varchar(30) [not null]
+  staff_department varchar(30) [not null]
+  staff_blood_group varchar(5) [not null]
+  staff_phone_number varchar(10) [not null]
+  staff_gender varchar(10) [not null]
+  staff_email varchar(255)
+  staff_address varchar(255) [not null]
+  staff_password varchar(255) [not null]
+  created_at datetime
+  updated_at datetime
+  staff_status bool
+}
+
+Table tbl_schedule_appointment{
+  appointment_id int [pk, increment]
+  patient_id int [ref: > tbl_patient_master.patient_id]
+  current_date date [not null]
+  appointment_date date [not null]
+  appointment_time time [not null]
+  medical_dept varchar(50) [not null]
+  symptoms varchar(255) [not null]
+  note varchar(255) [not null]
+  created_at datetime
+  updated_at datetime
+  appointment_status bool
+}
+
+Table tbl_generate_bill{
+  bill_id int [pk, increment]
+  patient_id int [ref: > tbl_patient_master.patient_id]
+  appointment_id int [ref: > tbl_schedule_appointment.appointment_id]
+  consulting_fees float [not null]
+  created_at datetime
+  updated_at datetime
+  bill_status bool
+}
